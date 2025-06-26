@@ -48,7 +48,7 @@ def main():
             rag_params = {
                 "data_sources": [
                     {
-                        # he following params are used to search the index
+                        #The following params are used to search the index
                         "type": "azure_search",
                         "parameters": {
                             "endpoint": search_url,
@@ -72,7 +72,13 @@ def main():
             response = chat_client.chat.completions.create(
                 model=chat_model,
                 messages=prompt,
-                extra_body=rag_params
+                extra_body=rag_params,
+                temperature=1,
+                top_p=0.95,
+                frequency_penalty=0.1,
+                presence_penalty=0,
+                stop=None,
+                stream=False
             )
             completion = response.choices[0].message.content
             print(completion)
